@@ -1,7 +1,13 @@
 ﻿using Sage100.Metadata.Import.Core;
+using System.Runtime.Versioning;
 
 class Execute
 {
+    /// <summary>
+    /// Der Einstiegspunkt der Anwendung. Initialisiert die Anwendung, verarbeitet Dateien und steuert die Benutzerinteraktion.
+    /// </summary>
+    /// <param name="args">Ein Array von Befehlszeilenargumenten. Das erste Argument gibt das Anwendungsverzeichnis an; falls nicht angegeben, wird das Standard-Basisverzeichnis der Anwendung verwendet.</param>
+    [SupportedOSPlatform("windows")]
     static void Main(string[] args)
     {
         var appDesigner = new AppDesigner(args.Length > 0 ? args[0] : Application.BaseDirectory());
@@ -26,6 +32,12 @@ class Execute
         Console.ReadLine();
     }
 
+    /// <summary>
+    /// Zeigt einen formatierten Header mit anwendungsspezifischen Pfaden und Bezeichnungen an.
+    /// </summary>
+    /// <remarks>Diese Methode gibt den Pfad der ausführbaren Datei und den Basispfad der Anwendung aus, gefolgt von einer Abschnittsüberschrift für Dateien. Die Ausgabe ist farblich hervorgehoben, wobei Bezeichnungen in Weiß und Pfade in Grün dargestellt werden.</remarks>
+    /// <param name="appDesigner">Eine Instanz von <see cref="AppDesigner"/>, die die anzuzeigenden Anwendungspfade bereitstellt.</param>
+    [SupportedOSPlatform("windows")]
     static void PrintHeader(AppDesigner appDesigner)
     {
         Console.ForegroundColor = ConsoleColor.White;
@@ -42,12 +54,20 @@ class Execute
         Console.WriteLine(Environment.NewLine + "Dateien");
     }
 
+    /// <summary>
+    /// Zeigt eine Meldung an, dass keine Metadatendateien gefunden wurden und der Import nicht möglich ist.
+    /// </summary>
+    /// <remarks>Die Meldung wird in roter Schrift angezeigt, um den Fehler hervorzuheben. Diese Methode ist für Szenarien gedacht, in denen das Fehlen von Metadatendateien die weitere Verarbeitung verhindert.</remarks>
     static void PrintNoFilesFound()
     {
         Console.ForegroundColor = ConsoleColor.Red;
         Console.WriteLine(Environment.NewLine + "Keine Metadaten gefunden, kein Import möglich");
     }
 
+    /// <summary>
+    /// Gibt den Status und Namen jeder Datei in der angegebenen Sammlung auf der Konsole aus.
+    /// </summary>
+    /// <param name="files">Eine Sammlung von Dateien, die ausgegeben werden sollen. Der Status jeder Datei wird in Gelb, gefolgt vom Namen in Weiß angezeigt.</param>
     static void PrintFiles(ImportFiles files)
     {
         foreach (var file in files)
@@ -59,6 +79,11 @@ class Execute
         }
     }
 
+    /// <summary>
+    /// Fordert den Benutzer auf zu bestätigen, ob Metadaten importiert werden sollen.
+    /// </summary>
+    /// <remarks>Die Methode zeigt eine Nachricht zur Bestätigung an und liest die Eingabe von der Konsole. Gibt der Benutzer "y" (Groß-/Kleinschreibung wird ignoriert) ein, gibt die Methode <see langword="true"/> zurück; andernfalls <see langword="false"/>. Leere Zeilen werden aus der Konsole entfernt, um eine saubere Ausgabe zu gewährleisten.</remarks>
+    /// <returns><see langword="true"/>, wenn der Benutzer den Import mit "y" bestätigt; andernfalls <see langword="false"/>.</returns>
     static bool AskForImport()
     {
         Console.WriteLine(Environment.NewLine + "Sollen die Metadaten importiert werden?");
@@ -75,6 +100,11 @@ class Execute
         return answer?.ToLower() == "y";
     }
 
+    /// <summary>
+    /// Importiert Dateien mit der angegebenen <see cref="AppDesigner"/>-Instanz und verarbeitet deren Status.
+    /// </summary>
+    /// <remarks>Diese Methode iteriert über die vom <paramref name="appDesigner"/> bereitgestellten Dateien und verarbeitet jede Datei mit der Methode <see cref="AppDesigner.ExecuteFile"/>. Der Status jeder Datei wird ausgewertet und die Konsolenausgabe entsprechend dem Ergebnis aktualisiert. Die Konsolenschriftfarbe ändert sich je nach Status der Datei: Grün bei Erfolg und Rot bei Fehlern.</remarks>
+    /// <param name="appDesigner">Die <see cref="AppDesigner"/>-Instanz, die die zu importierenden Dateien und die Logik zu deren Ausführung bereitstellt.</param>
     static void ImportFiles(AppDesigner appDesigner)
     {
         Console.ForegroundColor = ConsoleColor.Green;
