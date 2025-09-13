@@ -3,6 +3,8 @@
 Ein leistungsfähiges Tool zum Importieren und Verarbeiten von Metadatendateien für die Sage 100.  
 Das Tool unterstützt die automatisierte Erkennung, Statusanzeige und den Import von Metadaten im `.metadata`-Format.
 
+<img width="512" height="512" alt="favicon" src="https://github.com/user-attachments/assets/e18e1e42-7103-4608-941e-3a100bdab708" />
+
 ## Features
 
 - **Automatischer Import** von Metadatendateien aus einem angegebenen Verzeichnis
