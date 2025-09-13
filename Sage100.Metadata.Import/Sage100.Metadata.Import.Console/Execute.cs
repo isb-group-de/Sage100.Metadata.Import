@@ -86,7 +86,7 @@ class Execute
     /// <returns><see langword="true"/>, wenn der Benutzer den Import mit "y" bestätigt; andernfalls <see langword="false"/>.</returns>
     static bool AskForImport()
     {
-        Console.WriteLine(Environment.NewLine + "Sollen die Metadaten importiert werden?");
+        Console.WriteLine(Environment.NewLine + "Sollen die Metadaten importiert werden? (y = ja)");
         var answer = Console.ReadLine();
 
         if (!string.IsNullOrEmpty(answer))
