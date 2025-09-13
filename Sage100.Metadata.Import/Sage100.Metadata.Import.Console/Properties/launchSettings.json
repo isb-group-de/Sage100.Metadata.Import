@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "Sage100.Metadata.Import.Console": {
+      "commandName": "Project",
+      "commandLineArgs": "C:\\Temp\\Metadata"
+    }
+  }
+}
